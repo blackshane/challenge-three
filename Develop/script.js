@@ -6,7 +6,7 @@ var specialCharacters = [" ", "!", '"', "#", "$", "%", "&", "'", "(", ")", "*", 
 
 // Get references to the #generate element
 var generateBtn = document.querySelector("#generate");
-
+var prompt = window.prompt("Choose Password Characters")
 
 
 // Write password to the #password input
