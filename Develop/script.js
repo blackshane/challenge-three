@@ -1,41 +1,72 @@
 // Assignment code here
-var lowerCharacters = ["a", "b", "c", "d", "e", "f", "g", "h", "i", "j", "k", "l", "m", "n", "o", "p", "q", "r", "s", "t", "u", "v", "w", "x", "y", "z"];
-var upperCharacters = ["A", "B", "C", "D", "E", "F", "G", "H", "I", "J", "K", "L", "M", "N", "O", "P", "Q", "R", "S", "T", "U", "V", "W", "X", "Y", "Z"];
-var numberCharacters = ['0', '1', '2', '3', '4', '5', '6', '7', '8', '9']; 
-var specialCharacters = [" ", "!", '"', "#", "$", "%", "&", "'", "(", ")", "*", "+", ",", "-", ".", "/", ":", ";", "<", "=", ">", "?", "@", "[", "]", "^", "_", "`", "{", "|", "}", "~", "]", ";"];
+const lowerCharacters = ["a", "b", "c", "d", "e", "f", "g", "h", "i", "j", "k", "l", "m", "n", "o", "p", "q", "r", "s", "t", "u", "v", "w", "x", "y", "z"];
+const upperCharacters = ["A", "B", "C", "D", "E", "F", "G", "H", "I", "J", "K", "L", "M", "N", "O", "P", "Q", "R", "S", "T", "U", "V", "W", "X", "Y", "Z"];
+const numberCharacters = ['0', '1', '2', '3', '4', '5', '6', '7', '8', '9']; 
+const symbolCharacters = [" ", "!", '"', "#", "$", "%", "&", "'", "(", ")", "*", "+", ",", "-", ".", "/", ":", ";", "<", "=", ">", "?", "@", "[", "]", "^", "_", "`", "{", "|", "}", "~", "]", ";"];
 
-// Get references to the #generate element
-var generateBtn = document.querySelector("#generate");
- //var prompt = window.prompt("Choose Password Characters")
+// Text input
+const inputLength = document.querySelector("#input-length")
 
-// event.preventDefault() -- keeps screen from submitting inputs and disappearing. 
+// Checkbox inputs
+// checkbox inputs have a `.checked` attribute.
+const inputSymbols = document.querySelector("#input-symbols")
+const inputUppers = document.querySelector("#input-uppers")
+const inputLowers = document.querySelector("#input-lowers")
+const inputNumbers = document.querySelector("#input-numbers")
 
-// Write password to the #password input
 
-function generatePassword() {
-  console.log('THIS FUNCTION RAN')
-  return 'some_password'
+
+function generateString(length, characters) {
+  let result = ' ';
+  const charactersLength = characters.length;
+  for ( let i = 0; i < length; i++ ) {
+      result += characters.charAt(Math.floor(Math.random() * charactersLength));
+  }
+
+  return result;
 }
 
-var test_var = generatePassword()
 
-function iWillNeverRun() {
-  console.log("THIS WILL NEVER SHOW UP... UNLESS I CALL IT")
-}
+function handleAcceptButtonClick() {
+  // Verify 1 or more checkbox inputs are checked.
+  let input_checked = inputSymbols.checked || inputNumbers.checked || inputLowers.checked || inputUppers.checked
+  let inputLengthValue = inputLength.value
+  if (!input_checked) {
+    window.alert("At least one criteria must be selected");
+    return;
+  }
+  if (!inputLengthValue){
+    window.alert("Input length cannot be blank");
+    return;
+  }
 
+  let char_criteria = ''
+  if (inputSymbols.checked) {
+    char_criteria += symbolCharacters.join("")
+  }
+  if (inputNumbers.checked) {
+    char_criteria += numberCharacters.join("")
+  } 
+  if (inputLowers.checked) {
+    char_criteria += lowerCharacters.join("")
+  }
+  if (inputUppers.checked) {
+    char_criteria += upperCharacters.join("")
+  }
 
-function writePassword() {
-  var password = generatePassword()  // getting reference error here from browser console.
+  let password = generateString(inputLengthValue, char_criteria)
   var passwordText = document.querySelector("#password");
-  //document.getElementById("password").maxLength = "128";
-  //document.getElementById("password").minLength = "8";
-  //Math.random()
   passwordText.value = password;
-  // console.log(password)
+
+  // Close modal
+  modal.style.display = "none";
 }
 
-// Add event listener to generate button
-generateBtn.addEventListener("click", writePassword);
+
+var acceptButton = document.querySelector("#accept-button");
+acceptButton.addEventListener("click", handleAcceptButtonClick);
+
+
 
 // Get the modal
 var modal = document.getElementById("myModal");
