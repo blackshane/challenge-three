@@ -69,7 +69,6 @@ var acceptButton = document.querySelector("#accept-button");
 acceptButton.addEventListener("click", handleAcceptButtonClick);
 
 
-
 // Get the modal
 var modal = document.getElementById("myModal");
 
